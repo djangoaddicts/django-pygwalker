@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "pypi"
     steps:
-      - uses: davidslusser/actions_python_pypi@test
+      - uses: davidslusser/actions_python_pypi@v1.0.0
         with:
           build_command: "python -m build"
           pypi_username: ${{ secrets.PYPI_USERNAME }}
