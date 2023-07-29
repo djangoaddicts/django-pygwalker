@@ -32,12 +32,14 @@ classifiers = [
 ]
 dependencies = [
     "django",
+    "pandas",
+    "pygwalker",
 ]
 description = ""
 dynamic = ["version"]
-keywords = ["django"]
+keywords = ["django", "visualization", "data-analysis", "data-exploration", "tableau", "tableau-alternative",]
 license = {file = "LICENSE"}
-name = "djangoaddicts"
+name = "django-pygwalker"
 readme = "README.md"
 requires-python = ">=3.8"
 
@@ -87,7 +89,7 @@ show_missing = true
 
 [tool.coverage.run]
 branch = true
-omit = ["*_test.py", "*/tests/*", "*__version__.py", "setup.py", "src/djangoaddicts/manage.py", "src/djangoaddicts/core/*"]
+omit = ["*_test.py", "*/tests/*", "*__version__.py", "setup.py"]
 relative_files = true
 source = ["src"]
 
