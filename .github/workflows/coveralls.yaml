@@ -1,0 +1,14 @@
+on: [push]
+
+jobs:
+  coveralls:
+    runs-on: ubuntu-latest
+    name: "coveralls"
+    steps:
+    - name: actions_python_coveralls
+      uses: davidslusser/actions_python_coveralls@v1.0.0
+      with:
+        src: "src"
+        options: ""
+        pip_install_command: "pip install -e .[dev]"
+        coveralls_repo_token: ${{ secrets.COVERALLS_REPO_TOKEN }}

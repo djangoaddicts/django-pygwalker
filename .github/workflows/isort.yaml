@@ -1,0 +1,10 @@
+on: [push]
+
+jobs:
+  isort:
+    runs-on: ubuntu-latest
+    name: "isort"
+    steps:
+      - uses: davidslusser/actions_python_isort@v1.0.0
+        with:
+          src: "src"

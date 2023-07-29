@@ -1,0 +1,13 @@
+on: [push]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    name: "pytest"
+    steps:
+      - uses: davidslusser/actions_python_pytest@v1.0.0
+        with:
+          src: ""
+          options: "--cov=src"
+          pip_install_command: "pip install -e .[dev]"
+          python_version: "3.11"

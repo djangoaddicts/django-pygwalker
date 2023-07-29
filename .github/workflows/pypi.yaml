@@ -1,0 +1,24 @@
+name: Upload Python Package
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-dev'
+      - '[0-9]+.[0-9]+.[0-9]+-dev.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc'
+      - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    name: "pypi"
+    steps:
+      - uses: davidslusser/actions_python_pypi@test
+        with:
+          build_command: "python setup.py sdist bdist_wheel"
+          pypi_username: ${{ secrets.PYPI_USERNAME }}
+          pypi_password: ${{ secrets.PYPI_PASSWORD }}

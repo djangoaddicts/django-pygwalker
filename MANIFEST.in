@@ -1,0 +1,14 @@
+exclude *
+include pyproject.toml
+
+
+# Include the src files
+recursive-include src *
+
+recursive-exclude docs *
+recursive-exclude tests *
+recursive-exclude .github *
+recursive-exclude src/*.egg-info
+
+global-exclude */__pycache__/*
+global-exclude *.pyc

@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+    name: "mypy"
+    steps:
+      - uses: davidslusser/actions_python_mypy@v1.0.0
+        with:
+          src: "src"
+          options: "-v"
+          pip_install_command: "pip install -e .[dev]"

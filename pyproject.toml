@@ -1,0 +1,118 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "build",
+    "setuptools >= 67.7.2",
+	"setuptools_scm >= 7.1",
+	"wheel >= 0.40.0"
+]
+
+
+[project]
+authors = [
+    {name = "David Slusser", email = "dbslusser@gmail.com"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "django",
+]
+description = ""
+dynamic = ["version"]
+keywords = ["django"]
+license = {file = "LICENSE"}
+name = "djangoaddicts"
+readme = "README.md"
+requires-python = ">=3.8"
+
+
+[project.optional-dependencies]
+dev = [
+    "bandit",
+    "black",
+    "build",
+    "coveralls",
+    "django-environ",
+    "isort",
+    "model-bakery",
+    "mypy",
+    "mypy-extensions",
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "radon",
+    "safety",
+    "setuptools >= 67.7.2",
+	"setuptools_scm >= 7.1",
+    "types-python-dateutil",
+    "typing_extensions",
+    "wheel >= 0.40.0",
+]
+
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+]
+
+
+[tool.bandit]
+exclude_dirs = ["venv", "tests"]
+
+
+[tool.black]
+line-length = 120
+
+
+[tool.coverage.report]
+show_missing = true
+
+
+[tool.coverage.run]
+branch = true
+omit = ["*_test.py", "*/tests/*", "*__version__.py", "setup.py", "src/djangoaddicts/manage.py", "src/djangoaddicts/core/*"]
+relative_files = true
+source = ["src"]
+
+
+[tool.isort]
+profile = "black"
+
+
+[tool.mypy]
+exclude = ['venv/*']
+ignore_missing_imports = true
+
+
+# https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
+[tool.pytest.ini_options]
+addopts = "-s -v -x --strict-markers -m 'not extra' --doctest-modules"
+filterwarnings = [
+    "ignore::UserWarning",
+]
+testpaths = ["tests"]
+
+
+[tool.ruff]
+line-length = 120
+
+
+[tool.setuptools_scm]
+write_to = "src/__version__.py"
