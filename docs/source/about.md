@@ -1,6 +1,8 @@
 # About
 
-django-pygwalker is a reusable django application that created pygwalk interfaces from querysets.
+django-pygwalker is a utility that creates PyGWalker interfaces from Django querysets.
+
+For more information on PyGWalker see the github repo available here: https://github.com/Kanaries/pygwalker
 
 <br/>
 
