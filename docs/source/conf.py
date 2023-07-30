@@ -25,7 +25,7 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "django_settings"
 django.setup()
 
 project = 'django-pygwalker'
-copyright = '2020, David Slusser'
+copyright = '2023, David Slusser'
 author = 'David Slusser'
 
 # -- General configuration ---------------------------------------------------
