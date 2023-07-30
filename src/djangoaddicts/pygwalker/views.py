@@ -1,8 +1,8 @@
 import pandas as pd
 import pygwalker as pyg
+from django.db.models import QuerySet
 from django.shortcuts import render
 from django.views.generic import View
-from django.db.models import QuerySet
 
 
 class PygWalkerView(View):
