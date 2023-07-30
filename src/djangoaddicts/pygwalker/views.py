@@ -2,14 +2,15 @@ import pandas as pd
 import pygwalker as pyg
 from django.shortcuts import render
 from django.views.generic import View
+from django.db.models import QuerySet
 
 
-class PygView(View):
+class PygWalkerView(View):
     """View to create a PyGWalker visualization interface from a Django queryset.
     See https://github.com/Kanaries/pygwalker for more information on PyGWalker.
 
     class parameters:
-        field_list    - list of model fields to include
+        field_list    - list of model fields to include (defaults to fields defined in the model)
         queryset      - queryset providing data available to visualization
         theme         - PyGWalker theme to use for pyg html (defaults to "media")
         title         - title used on html render
@@ -17,17 +18,16 @@ class PygView(View):
 
     example:
 
-        from djangoaddicts.pygwalker.views import PygView
-        class MyPygView(PygView):
+        from djangoaddicts.pygwalker.views import PygWalkerView
+        class MyPygView(PygWalkerView):
             queryset = Order.objects.all()
             title = "Order Data Analysis"
             theme = "light"
             field_list = ["status__name", "customer", "order_id", "created_at", "updated_at", "products"]
     """
-
     field_list: list = []
-    queryset = None
-    template_name: str = "storemgr/pyg/pyg.html"
+    queryset: QuerySet = None
+    template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = "media"
     title: str = "Data Analysis"
 
