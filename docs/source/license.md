@@ -1,4 +1,5 @@
-LICENSE
-=======
+# LICENSE
 
+```{eval-rst}
 .. include:: ../../LICENSE
+```

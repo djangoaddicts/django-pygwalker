@@ -1,12 +1,15 @@
 # django-pygwalker
 [![Downloads](https://static.pepy.tech/badge/django-pygwalker)](https://pepy.tech/project/django-pygwalker)
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7516/badge)](https://bestpractices.coreinfrastructure.org/projects/7516)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7682/badge)](https://bestpractices.coreinfrastructure.org/projects/7682)
 
 ![PyPI - Python](https://img.shields.io/pypi/pyversions/django-pygwalker)
 ![PyPI - Django](https://img.shields.io/pypi/djversions/django-pygwalker)
 
-Django pygwalker is a utility used to create user interfaces for visual analysis, based on PyGWalker , from django querysets. 
+Turn your Django querysets into a user interfaces for visual analysis with PyGWalker.
+
+This utility creates user interfaces based on your Django querysets for visual analysis using PyGwalker. 
 For more information on PyGWalker see the github repo available here: https://github.com/Kanaries/pygwalker 
+
 
 <br/>
 
@@ -30,6 +33,7 @@ For more information on PyGWalker see the github repo available here: https://gi
 Dashboard:
 https://coveralls.io/github/djangoaddicts/django-pygwalker
 
+
 <br/>
 
 ## Documentation
@@ -51,13 +55,65 @@ https://github.com/djangoaddicts/django-pygwalker/blob/main/LICENSE
 <br/>
 
 ## Installation 
+- install via pip:
+    ``` 
+    pip install django-pygwalker
+    ```
+- add the following to your INSTALLED_APPS in settings.py:
 
+    ```python 
+    djangoaddicts.pygwalker
+    ```
+
+    ***NOTE:*** *adding djangoaddicts.pygwalker to INSTALLED_APPS is only required if you intend to use the built-in templates.* 
 
 <br/>
 
 ## Features
 
+### PygWalkerView
+The PygWalkerView view renders a page containing PyGWalker html. This view takes a queryset parameter and included all data in the queryset for visualizations. By default fields defined in the model will be included. To exclude fields or include additional fields (such as related fields), use the field_list parameter to specify exact fields desired for visualizations.  
+
+A Bootstrap 5 template is included, but can be overwritten using the template_name parameter. 
+
+#### Parameters
+- **field_list:** list of model fields to include (defaults to fields defined in the model)
+- **queryset:** queryset providing data available to visualization
+- **theme:** PyGWalker theme to use for pyg html (defaults to "media")
+- **title:** title used on html render
+- **template_name:** template used when rendering page; (defaults to pygwalker/bs5/pygwalker.html)
 
 <br/>
 
-## Usage Example
+## Usage Examples
+
+```python
+from djangoaddicts.pygwalker.views import PygWalkerView
+
+class MyPygWalkerView(PygWalkerView):
+    queryset = MyModel.objects.all()
+```
+
+#### Explicitly Defined Fields
+
+```python
+from djangoaddicts.pygwalker.views import PygWalkerView
+
+class MyPygWalkerView(PygWalkerView):
+    queryset = MyModel.objects.all()
+    title = "MyModel Data Analysis"
+    theme = "light"
+    field_list = ["name", "some_field", "some_other__related_field", "id", "created_at", "updated_at"]
+```
+
+
+#### Custom Template
+Custom views/templates can be used to override the Bootstrap 5 templates provided by default view. Here is an example:
+
+```python
+from djangoaddicts.pygwalker.views import PygWalkerView
+
+class MyPygWalkerView(PygWalkerView):
+    queryset = MyModel.objects.all()
+    template_name = "my_custom_template.html"
+```

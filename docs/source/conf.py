@@ -9,13 +9,8 @@
 import os
 import sys
 
-from datetime import datetime
-from setuptools.config import read_configuration
-
 import django
-
-repo_config = read_configuration("../../setup.cfg")["metadata"]
-
+print(os.path.abspath("../../src"))
 
 # Note: You may need to change the path to match
 # your project's structure
@@ -29,19 +24,23 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "django_settings"
 # autodoc your project
 django.setup()
 
-project = repo_config["name"]
-copyright = f'{datetime.now().year}, {repo_config["author"]}'
-author = repo_config["author"]
+project = 'django-pygwalker'
+copyright = '2020, David Slusser'
+author = 'David Slusser'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'myst_parser']
 
 templates_path = ['_templates']
 exclude_patterns = []
 
-
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+} 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

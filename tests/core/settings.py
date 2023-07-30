@@ -16,6 +16,8 @@ SECRET_KEY = "test"
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "djangoaddicts.pygwalker",
+    "tests.core.testapp",
 ]
 
 ROOT_URLCONF = "tests.core.urls"
@@ -46,6 +48,6 @@ TEMPLATES = [
     },
 ]
 
-BASE_TEMPLATE = ""
+BASE_TEMPLATE = "base.htm"
 
 USE_TZ = True
