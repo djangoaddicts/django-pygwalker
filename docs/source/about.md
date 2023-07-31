@@ -2,7 +2,7 @@
 
 django-pygwalker is a utility that creates PyGWalker interfaces from Django querysets.
 
-For more information on PyGWalker see the github repo available here: https://github.com/Kanaries/pygwalker
+For more information on PyGWalker see the github repo available here: <https://github.com/Kanaries/pygwalker>
 
 <br/>
 
