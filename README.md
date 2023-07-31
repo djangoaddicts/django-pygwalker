@@ -72,7 +72,7 @@ https://github.com/djangoaddicts/django-pygwalker/blob/main/LICENSE
 ## Features
 
 ### PygWalkerView
-The PygWalkerView view renders a page containing PyGWalker html. This view takes a queryset parameter and includes all data in the queryset for visualizations. By default fields defined in the model will be included. To exclude fields or include additional fields (such as related fields), use the field_list parameter to specify exact fields desired for visualizations.  
+The PygWalkerView renders a page containing PyGWalker html. This view takes a queryset parameter and includes all data in the queryset for visualizations. By default fields defined in the model will be included. To exclude fields or include additional fields (such as related fields), use the field_list parameter to specify exact fields desired for visualizations.  
 
 A Bootstrap 5 template is included, but can be overwritten using the template_name parameter. 
 
