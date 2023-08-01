@@ -25,6 +25,7 @@ class PygWalkerView(View):
             theme = "light"
             field_list = ["status__name", "customer", "order_id", "created_at", "updated_at", "products"]
     """
+
     field_list: list = []
     queryset: QuerySet = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
@@ -40,7 +41,7 @@ class PygWalkerView(View):
 class StaticCsvPygWalkerView(View):
     """View to create a PyGWalker visualization interface from a statically definied csv file.
     See https://github.com/Kanaries/pygwalker for more information on PyGWalker.
-        
+
     class parameters:
         csv_file      - csv file containing data to visualize
         theme         - PyGWalker theme to use for pyg html (defaults to "media")
@@ -55,7 +56,8 @@ class StaticCsvPygWalkerView(View):
             title = "Order Data Analysis"
             theme = "light"
     """
-    csv_file: str = None
+
+    csv_file: str | None = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = "media"
     title: str = "Data Analysis"
