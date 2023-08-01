@@ -1,0 +1,51 @@
+Name,Age,City,Salary,Date
+Person_1,42,Chicago,50754,1983-03-13
+Person_2,31,Los Angeles,89511,1983-04-19
+Person_3,26,Chicago,77705,2004-11-14
+Person_4,43,Los Angeles,54225,1996-09-15
+Person_5,25,Chicago,61892,1980-08-18
+Person_6,35,Chicago,40911,2007-03-22
+Person_7,48,San Francisco,73516,2014-01-26
+Person_8,37,New York,78823,1997-06-16
+Person_9,35,New York,81352,1981-11-28
+Person_10,31,Los Angeles,48646,2008-10-28
+Person_11,36,Seattle,43934,2018-10-19
+Person_12,26,San Francisco,73641,1992-08-29
+Person_13,22,San Francisco,84591,1993-06-07
+Person_14,45,New York,56018,2000-07-13
+Person_15,50,San Francisco,98653,1993-12-01
+Person_16,45,Los Angeles,87137,1989-02-21
+Person_17,23,Los Angeles,41793,2006-09-30
+Person_18,45,New York,89548,2014-03-18
+Person_19,50,Seattle,44938,2001-03-01
+Person_20,37,San Francisco,51237,1988-10-30
+Person_21,43,New York,85706,1997-07-18
+Person_22,41,San Francisco,74812,2007-04-13
+Person_23,48,Los Angeles,75169,1993-02-26
+Person_24,22,Seattle,49686,1987-03-29
+Person_25,42,New York,60213,1990-04-29
+Person_26,35,New York,46395,2016-01-03
+Person_27,40,Chicago,79998,1997-12-22
+Person_28,43,San Francisco,91895,2009-09-13
+Person_29,44,Los Angeles,52409,1990-07-10
+Person_30,28,Seattle,55245,2000-09-13
+Person_31,33,New York,57186,1992-12-07
+Person_32,23,New York,97908,2015-09-13
+Person_33,50,Chicago,76029,1985-06-16
+Person_34,33,Chicago,60437,1981-11-22
+Person_35,27,Los Angeles,45093,2005-06-16
+Person_36,35,Chicago,62306,2010-10-26
+Person_37,50,San Francisco,47688,2000-07-01
+Person_38,25,New York,99312,1991-04-03
+Person_39,39,Seattle,92942,2003-12-25
+Person_40,31,Los Angeles,42490,1997-02-19
+Person_41,32,San Francisco,42020,1988-12-26
+Person_42,40,New York,81988,1981-07-01
+Person_43,34,San Francisco,96498,2018-04-17
+Person_44,31,Seattle,40405,1984-09-03
+Person_45,48,San Francisco,65046,2003-05-27
+Person_46,37,Chicago,58297,1991-06-16
+Person_47,30,Seattle,44971,1997-08-12
+Person_48,23,Los Angeles,83651,2017-01-17
+Person_49,32,Seattle,42406,2000-10-13
+Person_50,37,New York,44543,2012-06-26

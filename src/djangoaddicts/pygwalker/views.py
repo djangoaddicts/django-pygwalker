@@ -25,6 +25,7 @@ class PygWalkerView(View):
             theme = "light"
             field_list = ["status__name", "customer", "order_id", "created_at", "updated_at", "products"]
     """
+
     field_list: list = []
     queryset: QuerySet = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
@@ -33,5 +34,35 @@ class PygWalkerView(View):
 
     def get(self, request):
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
+        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
+        return render(request, self.template_name, context)
+
+
+class StaticCsvPygWalkerView(View):
+    """View to create a PyGWalker visualization interface from a statically definied csv file.
+    See https://github.com/Kanaries/pygwalker for more information on PyGWalker.
+
+    class parameters:
+        csv_file      - csv file containing data to visualize
+        theme         - PyGWalker theme to use for pyg html (defaults to "media")
+        title         - title used on html render
+        template_name - template used when rendering page; defaults to: pygwalker/bs5/pyg.html
+
+    example:
+
+        from djangoaddicts.pygwalker.views import StaticCsvPygWalkerView
+        class MyPygView(StaticCsvPygWalkerView):
+            csv_file = "my_csv_file.csv
+            title = "Order Data Analysis"
+            theme = "light"
+    """
+
+    csv_file: str | None = None
+    template_name: str = "pygwalker/bs5/pygwalker.html"
+    theme: str = "media"
+    title: str = "Data Analysis"
+
+    def get(self, request):
+        pd_data = pd.read_csv(self.csv_file)
         context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
         return render(request, self.template_name, context)
