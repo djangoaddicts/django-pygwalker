@@ -1,8 +1,13 @@
+import mimetypes
 import pandas as pd
 import pygwalker as pyg
+from django.conf import settings
+from django.contrib import messages
 from django.db.models import QuerySet
 from django.shortcuts import render
 from django.views.generic import View
+
+from djangoaddicts.pygwalker.forms import UploadFileForm
 
 
 class PygWalkerView(View):
@@ -66,3 +71,31 @@ class StaticCsvPygWalkerView(View):
         pd_data = pd.read_csv(self.csv_file)
         context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
         return render(request, self.template_name, context)
+
+
+class DynamicCsvPygWalkerView(View):
+    template_name: str = "pygwalker/bs5/pygwalker_dynamic.html"
+    theme: str = getattr(settings, "PYGWALKER_THEME", "media")
+    title: str = "Upload a csv file"
+
+    def get(self, request):
+        context = {"form": UploadFileForm(), "title": "Upload a csv file"}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = form.cleaned_data["csv_file"]
+            if mimetypes.guess_type(csv_file.name)[0] not in ["text/csv"]:
+                messages.add_message(
+                    request, messages.ERROR, "file provided is not a csv file", extra_tags="alert-danger"
+                )
+                return render(request, self.template_name, context)
+            pd_data = pd.read_csv(csv_file)
+            context["pyg"] = pyg.walk(pd_data, return_html=True, dark=self.theme)
+            context[
+                "title"
+            ] = f"""Showing data from <span class="text-secondary">{csv_file.name.split("/")[-1]}</span>"""
+            return render(request, self.template_name, context)
+        return self.get(request)
