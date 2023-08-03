@@ -2,17 +2,12 @@
 
 {% block content %}
 <section class="animated fadeIn" style="animation-delay: .15s;">
-    <header class="m-5">
-        <div class="headline text-center">
-            <div class="container">
-                <div class="h1 text-primary fw-bold mb-3">{{ title }}</div>
-            </div>
-        </div>
-    </header>
+    {% include "pygwalker/bs5/partials/header.htm" %}
 </section>
 <section class="animated fadeIn" style="animation-delay: .25s;">
-    <div class="container-fluid my-5">
-        {{ pyg|safe }}
-    </div>
+    {% include "pygwalker/bs5/partials/pyg.htm" %}
+</section>
+<section class="animated fadeIn" style="animation-delay: .35s;">
+    {% include "pygwalker/bs5/partials/footer.htm" %}
 </section>
 {% endblock content %}

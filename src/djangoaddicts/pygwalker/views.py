@@ -1,4 +1,5 @@
 import mimetypes
+
 import pandas as pd
 import pygwalker as pyg
 from django.conf import settings
@@ -98,4 +99,14 @@ class DynamicCsvPygWalkerView(View):
                 "title"
             ] = f"""Showing data from <span class="text-secondary">{csv_file.name.split("/")[-1]}</span>"""
             return render(request, self.template_name, context)
+        else:
+            for error in form.errors:
+                for i in form.errors[error].data:
+                    for msg in i.messages:
+                        messages.add_message(
+                            self.request,
+                            messages.ERROR,
+                            msg,
+                            extra_tags="alert-danger",
+                        )
         return self.get(request)

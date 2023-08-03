@@ -7,7 +7,7 @@
 
 Turn your Django querysets into user interfaces for visual analysis with PyGWalker.
 
-This utility creates user interfaces based on your Django querysets for visual analysis using PyGwalker. 
+This utility creates user interfaces based on your Django querysets for visual analysis using PyGWalker. 
 For more information on PyGWalker see the github repo available here: https://github.com/Kanaries/pygwalker 
 
 

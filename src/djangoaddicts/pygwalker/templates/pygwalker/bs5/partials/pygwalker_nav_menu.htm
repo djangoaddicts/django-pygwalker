@@ -1,0 +1,17 @@
+{% comment %}
+This partial adds a link to the pygwalker view provided by django-pygwalker and is designed to be used within a
+bootstrap 5 navbar.
+
+To use this, add the following in your navbar where appropriate:
+    {% include 'pygwalker/bs5/partials/pygwalker_nav_menu.htm' %}
+
+{% endcomment %}
+
+
+<ul class="navbar-nav">
+    <li class="nav-item dropdown align-end mx-2">
+        <a class="nav-link" href="{% url 'pygwalker:' %}">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+        </a>
+    </li>
+</ul>

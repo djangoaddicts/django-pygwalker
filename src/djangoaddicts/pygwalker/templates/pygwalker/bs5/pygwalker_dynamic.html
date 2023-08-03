@@ -2,32 +2,15 @@
 
 {% block content %}
 <section class="animated fadeIn" style="animation-delay: .15s;">
-    <header class="m-5">
-        <div class="headline text-center">
-            <div class="container">
-                <div class="h1 text-primary fw-bold mb-3">{{ title|safe }}</div>
-            </div>
-        </div>
-    </header>
+    {% include "pygwalker/bs5/partials/header.htm" %}
 </section>
 <section class="animated fadeIn" style="animation-delay: .25s;">
-    <div class="container text-center">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group row">
-                <div class="col-10 col-md-11">
-                    <input type="file" class="form-control" name="csv_file" required id="id_csv_file">
-                </div>
-                <div class="col-2 col-md-1">
-                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
-                </div>
-            </div>
-        </form>
-    </div>
+    {% include "pygwalker/bs5/partials/file_upload.htm" %}
 </section>
-<section>
-    <div class="container-fluid my-5 animated fadeIn" style="animation-delay: .35s;">
-        {{ pyg|safe }}
-    </div>
+<section class="animated fadeIn" style="animation-delay: .35s;">
+    {% include "pygwalker/bs5/partials/pyg.htm" %}
+</section>
+<section class="animated fadeIn" style="animation-delay: .45s;">
+    {% include "pygwalker/bs5/partials/footer.htm" %}
 </section>
 {% endblock content %}
