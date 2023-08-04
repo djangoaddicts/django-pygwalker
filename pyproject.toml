@@ -35,7 +35,7 @@ dependencies = [
     "pandas",
     "pygwalker",
 ]
-description = ""
+description = "PyGWalker views for Django projects"
 dynamic = ["version"]
 keywords = ["django", "visualization", "data-analysis", "data-exploration", "tableau", "tableau-alternative",]
 license = {file = "LICENSE"}
@@ -73,6 +73,11 @@ docs = [
     "sphinx-rtd-theme",
     "myst-parser",
 ]
+
+
+[project.urls]
+homepage = "https://github.com/djangoaddicts/django-pygwalker"
+repository = "https://github.com/djangoaddicts/django-pygwalker"
 
 
 [tool.bandit]

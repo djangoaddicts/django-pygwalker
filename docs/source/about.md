@@ -1,6 +1,6 @@
 # About
 
-django-pygwalker is a utility that creates PyGWalker interfaces from Django querysets.
+This utility creates user interfaces for visual analysis using PyGWalker in your django application. A PyGWalker page can be created from a Django queryset, a static csv file, or an uploaded csv file.
 
 For more information on PyGWalker see the github repo available here: <https://github.com/Kanaries/pygwalker>
 

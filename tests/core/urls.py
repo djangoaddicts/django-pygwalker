@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from tests.core.testapp.views import (
     BasicPygWalkerView,
@@ -14,4 +14,5 @@ urlpatterns = [
     path("custom/", CustomTemplatePygWalkerView.as_view(), name="custom"),
     path("static_basic/", BasicStaticCsvPygWalkerViewView.as_view(), name="static_basic"),
     path("static_custom/", CustomTemplateStaticCsvPygWalkerViewView.as_view(), name="static_custom"),
+    path("pygwalker/", include("djangoaddicts.pygwalker.urls")),
 ]
