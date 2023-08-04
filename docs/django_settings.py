@@ -10,6 +10,7 @@ Location: /docs/django_settings.py
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "djangoaddicts.pygwalker",
 ]
 
 
