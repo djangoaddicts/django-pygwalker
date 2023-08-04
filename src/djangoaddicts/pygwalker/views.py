@@ -16,11 +16,11 @@ class PygWalkerView(View):
     See https://github.com/Kanaries/pygwalker for more information on PyGWalker.
 
     class parameters:
-        field_list    - list of model fields to include (defaults to fields defined in the model)
+        field_list    - list of model fields to include; defaults to fields defined in the model
         queryset      - queryset providing data available to visualization
-        theme         - PyGWalker theme to use for pyg html (defaults to "media")
-        title         - title used on html render
         template_name - template used when rendering page; defaults to: pygwalker/bs5/pyg.html
+        theme         - PyGWalker theme to use for pyg html; defaults to: "media"
+        title         - title used on html render
 
     example:
 
@@ -50,9 +50,9 @@ class StaticCsvPygWalkerView(View):
 
     class parameters:
         csv_file      - csv file containing data to visualize
-        theme         - PyGWalker theme to use for pyg html (defaults to "media")
-        title         - title used on html render
         template_name - template used when rendering page; defaults to: pygwalker/bs5/pyg.html
+        theme         - PyGWalker theme to use for pyg html; defaults to: "media"
+        title         - title used on html render
 
     example:
 
@@ -75,6 +75,15 @@ class StaticCsvPygWalkerView(View):
 
 
 class DynamicCsvPygWalkerView(View):
+    """View to create a PyGWalker visualization interface from a provided csv file.
+    See https://github.com/Kanaries/pygwalker for more information on PyGWalker.
+
+    class parameters:
+        template_name - template used when rendering page; defaults to: pygwalker/bs5/pygwalker_dynamic.html
+        theme         - PyGWalker theme to use for pyg html; defaults to "media"
+        title         - title used on html render
+    """
+
     template_name: str = "pygwalker/bs5/pygwalker_dynamic.html"
     theme: str = getattr(settings, "PYGWALKER_THEME", "media")
     title: str = "Upload a csv file"

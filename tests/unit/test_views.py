@@ -3,7 +3,7 @@ from django.test import RequestFactory, TestCase
 
 from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, DynamicCsvPygWalkerView
 from tests.core.testapp.models import TestModel
-from django.contrib import messages
+
 
 class PygWalkerViewCallTests(TestCase):
     """test PygWalkerView view"""

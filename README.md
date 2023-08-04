@@ -5,9 +5,8 @@
 ![PyPI - Python](https://img.shields.io/pypi/pyversions/django-pygwalker)
 ![PyPI - Django](https://img.shields.io/pypi/djversions/django-pygwalker)
 
-Turn your Django querysets into user interfaces for visual analysis with PyGWalker.
+This utility creates user interfaces for visual analysis using PyGWalker in your django application. A PyGWalker page can be created from a Django queryset, a static csv file, or an uploaded csv file.
 
-This utility creates user interfaces based on your Django querysets for visual analysis using PyGWalker. 
 For more information on PyGWalker see the github repo available here: https://github.com/Kanaries/pygwalker 
 
 
@@ -65,7 +64,14 @@ https://github.com/djangoaddicts/django-pygwalker/blob/main/LICENSE
     djangoaddicts.pygwalker
     ```
 
-    ***NOTE:*** *adding djangoaddicts.pygwalker to INSTALLED_APPS is only required if you intend to use the built-in templates.* 
+    ***NOTE:*** *adding djangoaddicts.pygwalker to INSTALLED_APPS is only required if you intend to use the built-in templates or the 'generic' PyGWalker view.* 
+
+- to include the generic PyGWalker view (creates the PyGWalker page from an upload of a csv file) add the following to your project-level urls.py:
+
+    ```python
+    path("pygwalker/", include("djangoaddicts.pygwalker.urls"), ),
+    ```
+
 
 <br/>
 
