@@ -63,7 +63,7 @@ class StaticCsvPygWalkerView(View):
             theme = "light"
     """
 
-    csv_file: str | None = None
+    csv_file = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = "media"
     title: str = "Data Analysis"
