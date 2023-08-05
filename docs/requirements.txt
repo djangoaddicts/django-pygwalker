@@ -1,2 +1,4 @@
 Django
 myst-parser
+pandas
+pygwalker
