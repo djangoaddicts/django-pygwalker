@@ -1,15 +1,13 @@
 import mimetypes
+
 import pandas as pd
 import pygwalker as pyg
-
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import QuerySet
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.shortcuts import render
 from django.views.generic import View
-
 from handyhelpers.views.gui import HandyHelperListPlusCreateAndFilterView
 
 from djangoaddicts.pygwalker.forms import UploadFileForm
@@ -126,7 +124,7 @@ class DynamicCsvPygWalkerView(View):
 
 
 class GenericPygWalkerView(View):
-    """View to create a PyGWalker visualization interface from an app and model passed as kwargs. If query 
+    """View to create a PyGWalker visualization interface from an app and model passed as kwargs. If query
     parameters are present, include only filtered data, based on query parameters, in the PyGWalker interface."""
 
     field_list: list = []
@@ -137,7 +135,7 @@ class GenericPygWalkerView(View):
 
     def get(self, request, **kwargs):
         """process GET request"""
-        referrer = request.META.get("HTTP_REFERER")
+        referrer = request.META.get("HTTP_REFERER", "")
         if "?" in referrer:
             query_dict = {
                 key: value for key, value in (item.split("=") for item in referrer.split("?")[1].split("&") if item)
@@ -152,16 +150,17 @@ class GenericPygWalkerView(View):
 
 
 class PygWalkerListView(HandyHelperListPlusCreateAndFilterView):
-    """extend the HandyHelperListPlusCreateAndFilterView to add an icon for a PyGWalker visualzation interface. If
-    the list view is filtered, include only filtered data in the PyGWalker interface."""
+    """extend the HandyHelperListPlusCreateAndFilterView (from handyhelpers) to add an icon for a PyGWalker 
+    visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
 
     template_name = "pygwalker/bs5/list.html"
     pygwalker_url = None
 
     def get(self, request, *args, **kwargs):
-        pygwalker_url = (
-            f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
-        )
+        if not self.pygwalker_url:
+            self.pygwalker_url = (
+                f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
+            )
         context = dict(
             base_template=self.base_template,
             queryset=self.filter_by_query_params(),
@@ -171,7 +170,7 @@ class PygWalkerListView(HandyHelperListPlusCreateAndFilterView):
             modals=self.modals,
             add_static=self.add_static,
             add_template=self.add_template,
-            pygwalker_url=pygwalker_url,
+            pygwalker_url=self.pygwalker_url,
             allow_create_groups=self.allow_create_groups,
             args=self.args,
             kwargs=self.kwargs,

@@ -51,6 +51,7 @@ dev = [
     "build",
     "coveralls",
     "django-environ",
+    "django-handyhelpers",
     "isort",
     "model-bakery",
     "mypy",

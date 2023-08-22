@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "djangoaddicts.pygwalker",
+    "handyhelpers",
     "tests.core.testapp",
 ]
 
