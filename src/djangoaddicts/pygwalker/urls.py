@@ -9,6 +9,5 @@ urlpatterns = [
     path("csv", DynamicCsvPygWalkerView.as_view(), name="csv"),
     path("dynamic", DynamicCsvPygWalkerView.as_view(), name="dynamic"),
     path("file", DynamicCsvPygWalkerView.as_view(), name="file"),
-    path("generic_pyg/<str:app_name>/<str:model_name>/", GenericPygWalkerView.as_view(), name="generic_pyg"), 
-    path("to_pyg/<str:app_name>/<str:model_name>/", ListToPygWalkerView.as_view(), name="to_pyg"), 
+    path("generic_pyg/<str:app_name>/<str:model_name>/", GenericPygWalkerView.as_view(), name="generic_pyg"),
 ]

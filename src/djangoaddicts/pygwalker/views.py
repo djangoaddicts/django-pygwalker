@@ -126,76 +126,83 @@ class DynamicCsvPygWalkerView(View):
 
 
 class GenericPygWalkerView(View):
-    """ View to create a PyGWalker visualization interface from an app and model passed as kwargs """
+    """View to create a PyGWalker visualization interface from an app and model passed as kwargs. If query 
+    parameters are present, include only filtered data, based on query parameters, in the PyGWalker interface."""
+
     field_list: list = []
     queryset: QuerySet = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = getattr(settings, "PYGWALKER_THEME", "media")
     title: str = "Data Analysis"
-    
+
     def get(self, request, **kwargs):
-        """ process GET request """
+        """process GET request"""
+        referrer = request.META.get("HTTP_REFERER")
+        if "?" in referrer:
+            query_dict = {
+                key: value for key, value in (item.split("=") for item in referrer.split("?")[1].split("&") if item)
+            }
+        else:
+            query_dict = {}
         model = apps.get_model(kwargs["app_name"], kwargs["model_name"])
-        self.queryset = model.objects.filter(**request.GET.dict())
+        self.queryset = model.objects.filter(**query_dict)
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
         context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
         return render(request, self.template_name, context)
-    
-    
-class ListToPygWalkerView(View):
-    """ extract query parameters from a filtred URL and create a PyGWalker visualization interface 
-    based containing only data from that filtered view """
-    def get(self, request, **kwargs):
-        """ process GET request """
-        referrer = request.META.get('HTTP_REFERER')
-        redirect_url = reverse("pygwalker:generic_pyg", 
-                         kwargs={"app_name":kwargs["app_name"], 
-                                 "model_name":kwargs["model_name"]}
-                         )
-        if referrer:
-            redirect_url += "?" + referrer.split('?')[1]
-        return redirect(redirect_url)
 
 
 class PygWalkerListView(HandyHelperListPlusCreateAndFilterView):
-    """ extend the HandyHelperListPlusCreateAndFilterView to add an icon for a PyGWalker visualzation interface. If 
-    the list view is filtered, include only filtered data in the PyGWalker interface. """
+    """extend the HandyHelperListPlusCreateAndFilterView to add an icon for a PyGWalker visualzation interface. If
+    the list view is filtered, include only filtered data in the PyGWalker interface."""
+
     template_name = "pygwalker/bs5/list.html"
     pygwalker_url = None
 
     def get(self, request, *args, **kwargs):
-        pygwalker_url = f"/pygwalker/to_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
-        context = dict(base_template=self.base_template, queryset=self.filter_by_query_params(), title=self.title,
-                       subtitle=self.page_description, table=self.table, modals=self.modals,
-                       add_static=self.add_static, add_template=self.add_template, pygwalker_url = pygwalker_url,
-                       allow_create_groups=self.allow_create_groups, args=self.args, kwargs=self.kwargs)
+        pygwalker_url = (
+            f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
+        )
+        context = dict(
+            base_template=self.base_template,
+            queryset=self.filter_by_query_params(),
+            title=self.title,
+            subtitle=self.page_description,
+            table=self.table,
+            modals=self.modals,
+            add_static=self.add_static,
+            add_template=self.add_template,
+            pygwalker_url=pygwalker_url,
+            allow_create_groups=self.allow_create_groups,
+            args=self.args,
+            kwargs=self.kwargs,
+        )
         if self.create_form_obj:
-            self.create_form['form'] = self.create_form_obj(request.POST or None)
-            self.create_form['action'] = 'Add'
-            self.create_form['action_url'] = self.create_form_url
-            self.create_form['title'] = self.create_form_title
-            self.create_form['modal_name'] = self.create_form_modal
-            self.create_form['modal_backdrop'] = self.create_form_modal_backdrop
-            self.create_form['modal_scrollable'] = self.create_form_modal_scrollable
-            self.create_form['modal_size'] = self.create_form_modal_size
-            self.create_form['link_title'] = self.create_form_link_title
-            self.create_form['tool_tip'] = self.create_form_tool_tip
-            self.create_form['autocomplete'] = self.create_form_autocomplete
-            context['create_form'] = self.create_form
+            self.create_form["form"] = self.create_form_obj(request.POST or None)
+            self.create_form["action"] = "Add"
+            self.create_form["action_url"] = self.create_form_url
+            self.create_form["title"] = self.create_form_title
+            self.create_form["modal_name"] = self.create_form_modal
+            self.create_form["modal_backdrop"] = self.create_form_modal_backdrop
+            self.create_form["modal_scrollable"] = self.create_form_modal_scrollable
+            self.create_form["modal_size"] = self.create_form_modal_size
+            self.create_form["link_title"] = self.create_form_link_title
+            self.create_form["tool_tip"] = self.create_form_tool_tip
+            self.create_form["autocomplete"] = self.create_form_autocomplete
+            context["create_form"] = self.create_form
 
         if self.filter_form_obj:
-            self.filter_form['form'] = self.filter_form_obj(request.POST or None, initial=self.request.GET.dict())
-            self.filter_form['action'] = 'Filter'
-            self.filter_form['action_url'] = self.filter_form_url
-            self.filter_form['title'] = self.filter_form_title
-            self.filter_form['modal_name'] = self.filter_form_modal
-            self.filter_form['modal_backdrop'] = self.filter_form_modal_backdrop
-            self.filter_form['modal_scrollable'] = self.filter_form_modal_scrollable
-            self.filter_form['modal_size'] = self.filter_form_modal_size
-            self.filter_form['link_title'] = self.filter_form_link_title
-            self.filter_form['tool_tip'] = self.filter_form_tool_tip
-            self.filter_form['undo'] = self.filter_form_undo
-            self.filter_form['autocomplete'] = self.filter_form_autocomplete
-            context['filter_form'] = self.filter_form
+            self.filter_form["form"] = self.filter_form_obj(request.POST or None, initial=self.request.GET.dict())
+            self.filter_form["action"] = "Filter"
+            self.filter_form["action_url"] = self.filter_form_url
+            self.filter_form["title"] = self.filter_form_title
+            self.filter_form["modal_name"] = self.filter_form_modal
+            self.filter_form["modal_backdrop"] = self.filter_form_modal_backdrop
+            self.filter_form["modal_scrollable"] = self.filter_form_modal_scrollable
+            self.filter_form["modal_size"] = self.filter_form_modal_size
+            self.filter_form["link_title"] = self.filter_form_link_title
+            self.filter_form["tool_tip"] = self.filter_form_tool_tip
+            self.filter_form["undo"] = self.filter_form_undo
+            self.filter_form["autocomplete"] = self.filter_form_autocomplete
+            context["filter_form"] = self.filter_form
 
         return render(request, self.template_name, context)
