@@ -1,0 +1,11 @@
+{% extends base_template|default:"handyhelpers/handyhelpers_base.htm" %}
+{% load static %}
+{% load handyhelper_tags %}
+
+{% block local_head %}
+    {% include "handyhelpers/component/bs5/table_components.htm" %}
+{% endblock %}
+
+{% block content %}
+    {% include "pygwalker/bs5/partials/list_content.htm" %}
+{% endblock content %}

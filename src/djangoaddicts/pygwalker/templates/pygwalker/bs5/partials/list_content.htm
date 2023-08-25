@@ -1,0 +1,67 @@
+{% load handyhelper_tags %}
+<div class="container-fluid animated fadeIn my-5">
+    <h1><span class="text-primary"><b>{{ title }}:</b></span> {% if subtitle %}<span class="text-secondary"><small><small>{{ subtitle }}</small></small></span>{% endif %}</h1>
+
+    <div class="text-end">
+        {# To include a pygwalker link, include the pygwalker_url in the context of your view #}
+        {% if pygwalker_url %}
+        <a href="{{ pygwalker_url|safe }}" class="mx-2"><i class="fa-solid fa-magnifying-glass-chart" title="PyGWalker view"></i></a>
+        {% endif %}
+        
+        {# To include a create form, exposed via modal, include create_form (dict) in the context of your view. The create_from must include modal_name and link_title fields #}
+        {% if create_form %}
+        {% if allow_create_groups and request.user|in_any_group:allow_create_groups %}
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ create_form.modal_name }}" title="{{ create_form.tool_tip|default_if_none:'create' }}">
+            <i class="fas fa-plus-circle"></i>
+            {% if create_form.link_title %} {{ create_form.link_title }} {% endif %}
+        </a>
+        {% endif %}
+        {% endif %}
+
+        {# To include a filter form, exposed via modal, include filter_form (dict) in the context of your view. The filter_from must include modal_name and link_title fields #}
+        {% if filter_form %}
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_{{ filter_form.modal_name }}" title="{{ filter_form.tool_tip|default_if_none:'filter' }}" class="ms-2">
+            <i class="fas fa-filter"></i>
+            {% if filter_form.link_title %} {{ filter_form.link_title }} {% endif %}
+        </a>
+            {% if filter_form.undo and request.META.QUERY_STRING %}
+            <a href="{% url 'handyhelpers:show_all_list_view' %}" title="clear filters" class="ms-2">
+                <i class="fas fa-undo-alt"></i>
+            </a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% include table %}
+</div>
+
+{% include 'handyhelpers/component/bs5/modals.htm' %}
+
+{# include generic modal form for the create object form if passed from the view #}
+{% with create_form as form_data %}
+    {% include 'handyhelpers/generic/bs5/generic_modal_form.htm' %}
+{% endwith %}
+
+{# include generic modal form for the filter object form if passed from the view #}
+{% with filter_form as form_data %}
+    {% include 'handyhelpers/generic/bs5/generic_modal_form.htm' %}
+{% endwith %}
+
+{# include custom modal html/js template if passed in from the view #}
+{% if modals %}
+    {% include modals %}
+{% endif %}
+
+{# block for additional static content #}
+{% block additional_static %}
+{% if add_static %}
+{{ add_static|safe }}
+{% endif %}
+{% endblock additional_static %}
+
+{# block for additional template content #}
+{% block additional_template %}
+{% if add_template %}
+{% include add_template %}
+{% endif %}
+{% endblock additional_template %}

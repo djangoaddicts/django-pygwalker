@@ -6,6 +6,7 @@ from tests.core.testapp.views import (
     CustomTemplatePygWalkerView,
     CustomTemplateStaticCsvPygWalkerViewView,
     ExplicitFieldsPygWalkerView,
+    TestModelListView,
 )
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path("custom/", CustomTemplatePygWalkerView.as_view(), name="custom"),
     path("static_basic/", BasicStaticCsvPygWalkerViewView.as_view(), name="static_basic"),
     path("static_custom/", CustomTemplateStaticCsvPygWalkerViewView.as_view(), name="static_custom"),
+    path("test_model_list_view/", TestModelListView.as_view(), name="test_model_list_view"),
     path("pygwalker/", include("djangoaddicts.pygwalker.urls")),
 ]

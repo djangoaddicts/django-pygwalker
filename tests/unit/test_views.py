@@ -1,7 +1,8 @@
 from django.shortcuts import reverse
 from django.test import RequestFactory, TestCase
 
-from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, DynamicCsvPygWalkerView
+from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, PygWalkerListView
+from tests.core.testapp.forms import TestForm
 from tests.core.testapp.models import TestModel
 
 
@@ -103,3 +104,57 @@ class DynamicCsvPygWalkerTests(TestCase):
             response = self.client.post(url, data={"csv_file": csv_file})
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker_dynamic.html")
+
+
+class GenericPygWalkerTests(TestCase):
+    """test GenericPygWalkerTests view"""
+    def test_get(self):
+        url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
+        response = self.client.get(url)
+        print(response)
+        self.assertTrue(True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
+
+    def test_get_with_referrer(self):
+        url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
+        response = self.client.get(url, **{"HTTP_REFERER": "/home?name=blah"})
+        self.assertTrue(True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
+
+
+class PygWalkerListViewCallTests(TestCase):
+    """test PygWalkerListView view"""
+
+    class MyPygWalkerListView(PygWalkerListView):
+        queryset = TestModel.objects.none()
+        pygwalker_url = f"/pygwalker/generic_pyg/{queryset.model._meta.app_label}/{queryset.model._meta.model_name}"
+        filter_form_obj = TestForm
+        create_form_obj = TestForm
+
+    class MyPygWalkerListViewNoUrl(PygWalkerListView):
+        queryset = TestModel.objects.none()
+
+    def setUp(self) -> None:
+        self.factory = RequestFactory()
+        self.request = self.factory.get("")
+        return super().setUp()
+
+    def test_view(self) -> None:
+        """verify PygWalkerListView is called"""
+        response = self.MyPygWalkerListView.as_view()(self.request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_no_url(self) -> None:
+        """verify PygWalkerListView is called"""
+        response = self.MyPygWalkerListViewNoUrl.as_view()(self.request)
+        self.assertEqual(response.status_code, 200)
+
+
+class PygWalkerListViewUsageTests(TestCase):
+    def test_basic(self):
+        url = reverse("test_model_list_view")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/list.html")
