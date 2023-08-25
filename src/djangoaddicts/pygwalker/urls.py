@@ -1,9 +1,6 @@
 from django.urls import path
 
-from djangoaddicts.pygwalker.views import (
-    DynamicCsvPygWalkerView,
-    GenericPygWalkerView,
-)
+from djangoaddicts.pygwalker.views import DynamicCsvPygWalkerView, GenericPygWalkerView
 
 app_name = "pygwalker"
 
