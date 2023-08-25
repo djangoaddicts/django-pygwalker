@@ -150,3 +150,11 @@ class PygWalkerListViewCallTests(TestCase):
         """verify PygWalkerListView is called"""
         response = self.MyPygWalkerListViewNoUrl.as_view()(self.request)
         self.assertEqual(response.status_code, 200)
+
+
+class PygWalkerListViewUsageTests(TestCase):
+    def test_basic(self):
+        url = reverse("test_model_list_view")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/list.html")

@@ -87,7 +87,7 @@ class MyPygWalkerView(StaticCsvPygWalkerView):
 
 ## DynamicCsvPygWalkerView
 
-The DynamicCsvPygWalkerView view is a 'generic' PyGWalker page that allows users to upload a csv file and creates the PyGWalker interface based on data in the uploaded csv file. To use this view, add the following to your INSTALLED_APPS in settings.py:
+The DynamicCsvPygWalkerView view is page that allows users to upload a csv file and creates the PyGWalker interface based on data in the uploaded csv file. To use this view, add the following to your INSTALLED_APPS in settings.py:
 
 ```python 
 djangoaddicts.pygwalker
@@ -111,5 +111,48 @@ The page can be reached using a link such as:
 
 #### Rendered Visualization
 ![rendered visualization](images/pyg_chart.png)
+
+
+<br/>
+
+## GenericPygWalkerView
+
+The GenericPygWalkerView creates a PyGWalker visualization interface from a provided app and model passed as kwargs. If query parameters are present, it includes only filtered data, based on query parameters, in the PyGWalker interface. To use this view, add the following to your INSTALLED_APPS in settings.py:
+
+```python 
+djangoaddicts.pygwalker
+```
+and add the following to your project-level urls.py:
+
+```python
+path("generic_pyg/<str:app_name>/<str:model_name>/", GenericPygWalkerView.as_view(), name="generic_pyg"),
+``` 
+
+The page can be reached using a link such as:
+
+```python
+<a href="/pygwalker/generic_pyg/my_app/my_model">my pygwalker link</a>
+```
+
+
+<br/>
+
+## PygWalkerListView
+
+The PygWalkerListView is a list view that extends the HandyHelperListPlusCreateAndFilterView (from handyhelpers) to add an icon for a PyGWalker visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface.
+
+A Bootstrap 5 template is included, but can be overwritten using the template_name parameter. 
+
+### Usage Examples
+
+```python
+from djangoaddicts.pygwalker.views import PygWalkerListView
+
+class ListProducts(PygWalkerListView):
+    """list available MyModel entries"""
+    queryset = MyModel.objects.all()
+    title = "MyModel Entries"
+    table = "myapp/table/mymodels.htm"
+```
 
 <br/>
