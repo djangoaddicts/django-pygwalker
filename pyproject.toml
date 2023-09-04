@@ -128,47 +128,15 @@ line-length = 120
 write_to = "src/__version__.py"
 
 
-# [tool.tox]
-# legacy_tox_ini = """
-#     [tox]
-#     env_list =
-#         py310-django42, 
-#         py310-django32,
-#         py311-django42, 
-#         py311-django32
-
-#     [testenv]
-#     deps = -e .[dev]
-#     commands = pytest
-
-#     [testenv:py310-django42-optional-dev]
-#     deps =
-#         Django>=4.2,<4.3
-#         {[testenv]deps}
-
-#     [testenv:py310-django32-optional-dev]
-#     deps =
-#         Django>=3.2,<3.3
-#         {[testenv]deps}
-
-#     [testenv:py311-django42-optional-dev]
-#     deps =
-#         Django>=4.2,<4.3
-#         {[testenv]deps}
-
-#     [testenv:py311-django32-optional-dev]
-#     deps =
-#         Django>=3.2,<3.3
-#         {[testenv]deps}
-# """
-
-
 [tool.tox]
 legacy_tox_ini = """
     [tox]
     env_list =
         py{38,39,310,311}-dj32,
+        py{38,39,310,311}-dj40,
+        py{38,39,310,311}-dj41,
         py{38,39,310,311}-dj42,
+        py{38,39,310,311}-djmain,
 
     [gh-actions]
     python =
@@ -181,14 +149,19 @@ legacy_tox_ini = """
     [gh-actions:env]
     DJANGO =
         3.2: dj32
+        4.0: dj40
+        4.1: dj41
         4.2: dj42
+        main: djmain
 
     [testenv]
     deps = 
         -e .[dev]
         dj32: Django>=3.2,<3.3
+        dj40: Django>=4.0,<4.1
         dj41: Django>=4.1,<4.2
         dj42: Django>=4.2,<4.3
+        dmain: https://github.com/django/django/tarball/main
 
     commands = pytest
 """
