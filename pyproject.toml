@@ -64,6 +64,8 @@ dev = [
     "safety",
     "setuptools >= 67.7.2",
 	"setuptools_scm >= 7.1",
+    "tox",
+    "tox-gh-actions",
     "types-python-dateutil",
     "typing_extensions",
     "wheel >= 0.40.0",
@@ -124,3 +126,69 @@ line-length = 120
 
 [tool.setuptools_scm]
 write_to = "src/__version__.py"
+
+
+# [tool.tox]
+# legacy_tox_ini = """
+#     [tox]
+#     env_list =
+#         py310-django42, 
+#         py310-django32,
+#         py311-django42, 
+#         py311-django32
+
+#     [testenv]
+#     deps = -e .[dev]
+#     commands = pytest
+
+#     [testenv:py310-django42-optional-dev]
+#     deps =
+#         Django>=4.2,<4.3
+#         {[testenv]deps}
+
+#     [testenv:py310-django32-optional-dev]
+#     deps =
+#         Django>=3.2,<3.3
+#         {[testenv]deps}
+
+#     [testenv:py311-django42-optional-dev]
+#     deps =
+#         Django>=4.2,<4.3
+#         {[testenv]deps}
+
+#     [testenv:py311-django32-optional-dev]
+#     deps =
+#         Django>=3.2,<3.3
+#         {[testenv]deps}
+# """
+
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    env_list =
+        py{38,39,310,311}-dj32,
+        py{38,39,310,311}-dj42,
+
+    [gh-actions]
+    python =
+        3.8: py38
+        3.9: py39
+        3.10: py310
+        3.11: py311
+        3.12: py312
+
+    [gh-actions:env]
+    DJANGO =
+        3.2: dj32
+        4.2: dj42
+
+    [testenv]
+    deps = 
+        -e .[dev]
+        dj32: Django>=3.2,<3.3
+        dj41: Django>=4.1,<4.2
+        dj42: Django>=4.2,<4.3
+
+    commands = pytest
+"""
