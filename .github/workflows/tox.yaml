@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
     tox:
-        name: build (Python ${{ matrix.python-version }}, Django ${{ matrix.django-version }})
+        name: run tests with Python ${{ matrix.python-version }}, Django ${{ matrix.django-version }}
         runs-on: ubuntu-latest
 
         strategy:
@@ -23,12 +23,12 @@ jobs:
                 setup.py
                 tox.ini
                 requirements/*.txt
-    
-        - name: "Install dependencies"
+       
+        - name: "Install Python Dependencies"
           run: |
-            "python -m pip install --upgrade pip"
-            "pip install -e .[dev]"
-    
+              python -m pip install --upgrade pip
+              pip install -e .[dev]
+
         - name: "Tox tests"
           run: |
             tox -v
