@@ -3,11 +3,13 @@
 [![Downloads](https://static.pepy.tech/badge/django-pygwalker)](https://pepy.tech/project/django-pygwalker)
 ![](https://img.shields.io/pypi/status/django-pygwalker)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/23aa8dc3c2e30ac40cb4/maintainability)](https://codeclimate.com/github/djangoaddicts/django-pygwalker/maintainability)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7682/badge)](https://bestpractices.coreinfrastructure.org/projects/7682)
 
 ![PyPI - Python](https://img.shields.io/pypi/pyversions/django-pygwalker)
 ![PyPI - Django](https://img.shields.io/pypi/djversions/django-pygwalker)
 
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7682/badge)](https://bestpractices.coreinfrastructure.org/projects/7682)
+
 
 This utility creates user interfaces for visual analysis using PyGWalker in your django application. A PyGWalker page can be created from a Django queryset, a static csv file, or an uploaded csv file.
 
@@ -29,6 +31,8 @@ For more information on PyGWalker see the github repo available here: https://gi
 |Radon|code complexity analysis|![Radon](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/radon.yaml/badge.svg)|
 |Ruff|static code analysis|![Ruff](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/ruff.yaml/badge.svg)|
 |Safety|dependency scanner|![Saftey](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/safety.yaml/badge.svg)|
+|Tox|python/django versions testing|![Tox](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/tox.yaml/badge.svg)|
+
 
 ### Code Coverage 
 [![Coverage Status](https://coveralls.io/repos/github/djangoaddicts/django-pygwalker/badge.svg)](https://coveralls.io/github/djangoaddicts/django-pygwalker)

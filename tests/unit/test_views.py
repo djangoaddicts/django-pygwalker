@@ -157,4 +157,4 @@ class PygWalkerListViewUsageTests(TestCase):
         url = reverse("test_model_list_view")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "pygwalker/bs5/list.html")
+        self.assertTemplateUsed(response, "handyhelpers/generic/bs5/generic_list.html")
