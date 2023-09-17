@@ -167,9 +167,9 @@ A Bootstrap 5 template is included, but can be overwritten using the template_na
 ### Usage Examples
 
 ```python
-from djangoaddicts.pygwalker.views import HandyHelperPaginatedListView
+from djangoaddicts.pygwalker.views import PygWalkerPaginatedListView
 
-class ListProducts(HandyHelperPaginatedListView):
+class ListProducts(PygWalkerPaginatedListView):
     """list available MyModel entries"""
     queryset = MyModel.objects.all()
     title = "MyModel Entries"
