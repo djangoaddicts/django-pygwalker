@@ -1,4 +1,5 @@
 import mimetypes
+
 import pandas as pd
 import pygwalker as pyg
 from django.apps import apps
@@ -7,7 +8,6 @@ from django.contrib import messages
 from django.db.models import QuerySet
 from django.shortcuts import render
 from django.views.generic import View
-
 from handyhelpers.views.gui import HandyHelperListView, HandyHelperPaginatedListView
 
 from djangoaddicts.pygwalker.forms import UploadFileForm
