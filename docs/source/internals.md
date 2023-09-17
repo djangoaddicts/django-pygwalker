@@ -10,7 +10,7 @@ The documentation below details some of the internal workings of django-pygwalke
 
 ```{eval-rst}
 .. automodule:: djangoaddicts.pygwalker.views
-    :members: PygWalkerView, StaticCsvPygWalkerView, DynamicCsvPygWalkerView, GenericPygWalkerView, PygWalkerListView, PygWalkerPaginatedListView
+    :members: PygWalkerView, StaticCsvPygWalkerView, DynamicCsvPygWalkerView, GenericPygWalkerView, PygWalkerListViewMixin, PygWalkerListView, PygWalkerPaginatedListView
 ```
 
 <br/>
