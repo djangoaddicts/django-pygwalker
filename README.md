@@ -3,11 +3,13 @@
 [![Downloads](https://static.pepy.tech/badge/django-pygwalker)](https://pepy.tech/project/django-pygwalker)
 ![](https://img.shields.io/pypi/status/django-pygwalker)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/23aa8dc3c2e30ac40cb4/maintainability)](https://codeclimate.com/github/djangoaddicts/django-pygwalker/maintainability)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7682/badge)](https://bestpractices.coreinfrastructure.org/projects/7682)
 
 ![PyPI - Python](https://img.shields.io/pypi/pyversions/django-pygwalker)
 ![PyPI - Django](https://img.shields.io/pypi/djversions/django-pygwalker)
 
-[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7682/badge)](https://bestpractices.coreinfrastructure.org/projects/7682)
+
 
 This utility creates user interfaces for visual analysis using PyGWalker in your django application. A PyGWalker page can be created from a Django queryset, a static csv file, or an uploaded csv file.
 
@@ -29,6 +31,8 @@ For more information on PyGWalker see the github repo available here: https://gi
 |Radon|code complexity analysis|![Radon](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/radon.yaml/badge.svg)|
 |Ruff|static code analysis|![Ruff](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/ruff.yaml/badge.svg)|
 |Safety|dependency scanner|![Saftey](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/safety.yaml/badge.svg)|
+|Tox|python/django versions testing|![Tox](https://github.com/djangoaddicts/django-pygwalker/actions/workflows/tox.yaml/badge.svg)|
+
 
 ### Code Coverage 
 [![Coverage Status](https://coveralls.io/repos/github/djangoaddicts/django-pygwalker/badge.svg)](https://coveralls.io/github/djangoaddicts/django-pygwalker)
@@ -93,6 +97,7 @@ A Bootstrap 5 template is included, but can be overwritten using the template_na
 - **title:** title used on html render
 - **template_name:** template used when rendering page; (defaults to pygwalker/bs5/pygwalker.html)
 
+
 <br/>
 
 ## Usage Examples
@@ -115,7 +120,6 @@ class MyPygWalkerView(PygWalkerView):
     theme = "light"
     field_list = ["name", "some_field", "some_other__related_field", "id", "created_at", "updated_at"]
 ```
-
 
 #### Custom Template
 Custom views/templates can be used to override the Bootstrap 5 templates provided by default view. Here is an example:

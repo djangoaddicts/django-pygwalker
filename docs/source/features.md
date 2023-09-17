@@ -139,7 +139,7 @@ The page can be reached using a link such as:
 
 ## PygWalkerListView
 
-The PygWalkerListView is a list view that extends the HandyHelperListPlusCreateAndFilterView (from handyhelpers) to add an icon for a PyGWalker visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface.
+The PygWalkerListView is a list view that extends the HandyHelperListView (from handyhelpers) to add an icon for a PyGWalker visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface.
 
 A Bootstrap 5 template is included, but can be overwritten using the template_name parameter. 
 
@@ -149,6 +149,27 @@ A Bootstrap 5 template is included, but can be overwritten using the template_na
 from djangoaddicts.pygwalker.views import PygWalkerListView
 
 class ListProducts(PygWalkerListView):
+    """list available MyModel entries"""
+    queryset = MyModel.objects.all()
+    title = "MyModel Entries"
+    table = "myapp/table/mymodels.htm"
+```
+
+
+<br/>
+
+## PygWalkerPaginatedListView
+
+The PygWalkerPaginatedListView is a list view that extends the HandyHelperPaginatedListView (from handyhelpers) to add an icon for a PyGWalker visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface.
+
+A Bootstrap 5 template is included, but can be overwritten using the template_name parameter. 
+
+### Usage Examples
+
+```python
+from djangoaddicts.pygwalker.views import HandyHelperPaginatedListView
+
+class ListProducts(HandyHelperPaginatedListView):
     """list available MyModel entries"""
     queryset = MyModel.objects.all()
     title = "MyModel Entries"

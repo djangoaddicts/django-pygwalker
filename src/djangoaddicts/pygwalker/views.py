@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.db.models import QuerySet
 from django.shortcuts import render
 from django.views.generic import View
-from handyhelpers.views.gui import HandyHelperListPlusCreateAndFilterView
+from handyhelpers.views.gui import HandyHelperListView, HandyHelperPaginatedListView
 
 from djangoaddicts.pygwalker.forms import UploadFileForm
 
@@ -149,59 +149,29 @@ class GenericPygWalkerView(View):
         return render(request, self.template_name, context)
 
 
-class PygWalkerListView(HandyHelperListPlusCreateAndFilterView):
-    """extend the HandyHelperListPlusCreateAndFilterView (from handyhelpers) to add an icon for a PyGWalker 
-    visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
+class PygWalkerListViewMixin:
+    pygwalker_icon: str = """<i class="fa-solid fa-magnifying-glass-chart"></i>"""
+    pygwalker_title: str = "PyGWalker view"
 
-    template_name = "pygwalker/bs5/list.html"
-    pygwalker_url = None
-
-    def get(self, request, *args, **kwargs):
-        if not self.pygwalker_url:
-            self.pygwalker_url = (
-                f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
-            )
-        context = dict(
-            base_template=self.base_template,
-            queryset=self.filter_by_query_params(),
-            title=self.title,
-            subtitle=self.page_description,
-            table=self.table,
-            modals=self.modals,
-            add_static=self.add_static,
-            add_template=self.add_template,
-            pygwalker_url=self.pygwalker_url,
-            allow_create_groups=self.allow_create_groups,
-            args=self.args,
-            kwargs=self.kwargs,
+    def get(self, request, *args, **kwargs): 
+        self.pygwalker_url = (
+            f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
         )
-        if self.create_form_obj:
-            self.create_form["form"] = self.create_form_obj(request.POST or None)
-            self.create_form["action"] = "Add"
-            self.create_form["action_url"] = self.create_form_url
-            self.create_form["title"] = self.create_form_title
-            self.create_form["modal_name"] = self.create_form_modal
-            self.create_form["modal_backdrop"] = self.create_form_modal_backdrop
-            self.create_form["modal_scrollable"] = self.create_form_modal_scrollable
-            self.create_form["modal_size"] = self.create_form_modal_size
-            self.create_form["link_title"] = self.create_form_link_title
-            self.create_form["tool_tip"] = self.create_form_tool_tip
-            self.create_form["autocomplete"] = self.create_form_autocomplete
-            context["create_form"] = self.create_form
 
-        if self.filter_form_obj:
-            self.filter_form["form"] = self.filter_form_obj(request.POST or None, initial=self.request.GET.dict())
-            self.filter_form["action"] = "Filter"
-            self.filter_form["action_url"] = self.filter_form_url
-            self.filter_form["title"] = self.filter_form_title
-            self.filter_form["modal_name"] = self.filter_form_modal
-            self.filter_form["modal_backdrop"] = self.filter_form_modal_backdrop
-            self.filter_form["modal_scrollable"] = self.filter_form_modal_scrollable
-            self.filter_form["modal_size"] = self.filter_form_modal_size
-            self.filter_form["link_title"] = self.filter_form_link_title
-            self.filter_form["tool_tip"] = self.filter_form_tool_tip
-            self.filter_form["undo"] = self.filter_form_undo
-            self.filter_form["autocomplete"] = self.filter_form_autocomplete
-            context["filter_form"] = self.filter_form
+        self.extra_controls['pygwalker'] = \
+            {"icon": self.pygwalker_icon,
+             "title": self.pygwalker_title,
+             "url": self.pygwalker_url,
+             }
+        return super().get(request, *args, **kwargs)
 
-        return render(request, self.template_name, context)
+
+class PygWalkerListView(PygWalkerListViewMixin, HandyHelperListView):
+    """extend the HandyHelperListView (from handyhelpers) to add an icon for a PyGWalker
+    visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
+ 
+
+class PygWalkerPaginatedListView(PygWalkerListViewMixin, HandyHelperPaginatedListView):
+    """extend the HandyHelperPaginatedListView (from handyhelpers) to add an icon for a PyGWalker 
+    visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
+ 
