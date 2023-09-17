@@ -1,4 +1,4 @@
-from djangoaddicts.pygwalker.views import PygWalkerListView, PygWalkerView, StaticCsvPygWalkerView
+from djangoaddicts.pygwalker.views import PygWalkerListView, PygWalkerPaginatedListView, PygWalkerView, StaticCsvPygWalkerView
 from tests.core.testapp.models import TestModel
 
 
@@ -28,5 +28,10 @@ class CustomTemplateStaticCsvPygWalkerViewView(StaticCsvPygWalkerView):
 
 
 class TestModelListView(PygWalkerListView):
+    queryset = TestModel.objects.all()
+    title = "TestModels"
+
+
+class TestModelPaginatedListView(PygWalkerPaginatedListView):
     queryset = TestModel.objects.all()
     title = "TestModels"

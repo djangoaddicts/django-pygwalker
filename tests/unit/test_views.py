@@ -1,7 +1,7 @@
 from django.shortcuts import reverse
 from django.test import RequestFactory, TestCase
 
-from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, PygWalkerListView
+from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, PygWalkerListView, PygWalkerPaginatedListView
 from tests.core.testapp.forms import TestForm
 from tests.core.testapp.models import TestModel
 
@@ -155,6 +155,42 @@ class PygWalkerListViewCallTests(TestCase):
 class PygWalkerListViewUsageTests(TestCase):
     def test_basic(self):
         url = reverse("test_model_list_view")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "handyhelpers/generic/bs5/generic_list.html")
+
+
+class PygWalkerPaginatedListViewCallTests(TestCase):
+    """test PygWalkerPaginatedListView view"""
+
+    class MyPygWalkerPaginatedListView(PygWalkerPaginatedListView):
+        queryset = TestModel.objects.none()
+        pygwalker_url = f"/pygwalker/generic_pyg/{queryset.model._meta.app_label}/{queryset.model._meta.model_name}"
+        filter_form_obj = TestForm
+        create_form_obj = TestForm
+
+    class MyPygWalkerPaginatedListViewNoUrl(PygWalkerPaginatedListView):
+        queryset = TestModel.objects.none()
+
+    def setUp(self) -> None:
+        self.factory = RequestFactory()
+        self.request = self.factory.get("")
+        return super().setUp()
+
+    def test_view(self) -> None:
+        """verify PygWalkerListView is called"""
+        response = self.MyPygWalkerPaginatedListView.as_view()(self.request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_no_url(self) -> None:
+        """verify PygWalkerListView is called"""
+        response = self.MyPygWalkerPaginatedListViewNoUrl.as_view()(self.request)
+        self.assertEqual(response.status_code, 200)
+
+
+class PygWalkerPaginatedListViewUsageTests(TestCase):
+    def test_basic(self):
+        url = reverse("test_model_paginated_list_view")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "handyhelpers/generic/bs5/generic_list.html")

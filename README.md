@@ -97,6 +97,7 @@ A Bootstrap 5 template is included, but can be overwritten using the template_na
 - **title:** title used on html render
 - **template_name:** template used when rendering page; (defaults to pygwalker/bs5/pygwalker.html)
 
+
 <br/>
 
 ## Usage Examples
@@ -119,7 +120,6 @@ class MyPygWalkerView(PygWalkerView):
     theme = "light"
     field_list = ["name", "some_field", "some_other__related_field", "id", "created_at", "updated_at"]
 ```
-
 
 #### Custom Template
 Custom views/templates can be used to override the Bootstrap 5 templates provided by default view. Here is an example:
