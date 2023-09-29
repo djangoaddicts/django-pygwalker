@@ -66,6 +66,12 @@ class PygWalkerViewUsageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
+    def test_with_referrer(self):
+        url = reverse("basic")
+        response = self.client.get(url, HTTP_REFERER="/?name=blah")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
+
 
 class StaticCsvPygWalkerViewUsageTests(TestCase):
     def test_basic(self):
@@ -117,7 +123,6 @@ class GenericPygWalkerTests(TestCase):
     def test_get(self):
         url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
         response = self.client.get(url)
-        print(response)
         self.assertTrue(True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
