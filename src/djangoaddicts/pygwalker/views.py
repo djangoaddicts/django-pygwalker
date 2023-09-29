@@ -43,6 +43,14 @@ class PygWalkerView(View):
     title: str | None = None
 
     def get(self, request):
+        referrer = request.META.get("HTTP_REFERER", "")
+        if "?" in referrer:
+            query_dict = {
+                key: value for key, value in (item.split("=") for item in referrer.split("?")[1].split("&") if item)
+            }
+        else:
+            query_dict = {}
+        self.queryset = self.queryset.filter(**query_dict)
         if not self.title:
             self.title = f"{self.queryset.model._meta.model_name.title()} Analysis"
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
@@ -135,7 +143,6 @@ class GenericPygWalkerView(View):
     queryset: QuerySet = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = getattr(settings, "PYGWALKER_THEME", "media")
-    title: str = "Data Analysis"
 
     def get(self, request, **kwargs):
         """process GET request"""
@@ -149,7 +156,8 @@ class GenericPygWalkerView(View):
         model = apps.get_model(kwargs["app_name"], kwargs["model_name"])
         self.queryset = model.objects.filter(**query_dict)
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
-        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
+        title = f"{self.queryset.model._meta.model_name.title()} Analysis"
+        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": title}
         return render(request, self.template_name, context)
 
 
