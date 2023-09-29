@@ -6,6 +6,11 @@ class BasicPygWalkerView(PygWalkerView):
     queryset = TestModel.objects.all()
 
 
+class CustomTitlePygWalkerView(PygWalkerView):
+    queryset = TestModel.objects.all()
+    title = "My Custom Title"
+
+
 class ExplicitFieldsPygWalkerView(PygWalkerView):
     queryset = TestModel.objects.all()
     title = "TestModel Data Analysis"

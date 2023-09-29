@@ -38,9 +38,11 @@ class PygWalkerView(View):
     queryset: QuerySet = None
     template_name: str = "pygwalker/bs5/pygwalker.html"
     theme: str = getattr(settings, "PYGWALKER_THEME", "media")
-    title: str = "Data Analysis"
+    title: str | None = None
 
     def get(self, request):
+        if not self.title:
+            self.title = f"{self.queryset.model._meta.model_name.title()} Analysis"
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
         context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
         return render(request, self.template_name, context)
@@ -152,26 +154,27 @@ class GenericPygWalkerView(View):
 class PygWalkerListViewMixin:
     pygwalker_icon: str = """<i class="fa-solid fa-magnifying-glass-chart"></i>"""
     pygwalker_title: str = "PyGWalker view"
+    pygwalker_url: str | None = None
 
-    def get(self, request, *args, **kwargs): 
-        self.pygwalker_url = (
-            f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
-        )
+    def get(self, request, *args, **kwargs):
+        if not self.pygwalker_url:
+            self.pygwalker_url = (
+                f"/pygwalker/generic_pyg/{self.queryset.model._meta.app_label}/{self.queryset.model._meta.model_name}"
+            )
 
-        self.extra_controls['pygwalker'] = \
-            {"icon": self.pygwalker_icon,
-             "title": self.pygwalker_title,
-             "url": self.pygwalker_url,
-             }
+        self.extra_controls["pygwalker"] = {
+            "icon": self.pygwalker_icon,
+            "title": self.pygwalker_title,
+            "url": self.pygwalker_url,
+        }
         return super().get(request, *args, **kwargs)
 
 
 class PygWalkerListView(PygWalkerListViewMixin, HandyHelperListView):
     """extend the HandyHelperListView (from handyhelpers) to add an icon for a PyGWalker
     visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
- 
+
 
 class PygWalkerPaginatedListView(PygWalkerListViewMixin, HandyHelperPaginatedListView):
-    """extend the HandyHelperPaginatedListView (from handyhelpers) to add an icon for a PyGWalker 
+    """extend the HandyHelperPaginatedListView (from handyhelpers) to add an icon for a PyGWalker
     visualzation interface. If the list view is filtered, include only filtered data in the PyGWalker interface."""
- 

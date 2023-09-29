@@ -47,18 +47,24 @@ class PygWalkerViewUsageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
-    def test_explicit_fields(self):
-        url = reverse("explicit")
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
-
     def test_custom_template(self):
         url = reverse("custom")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "testapp/my_custom_template.html")
         self.assertTemplateNotUsed(response, "pygwalker/bs5/pygwalker.html")
+
+    def test_explicit_fields(self):
+        url = reverse("explicit")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
+
+    def test_custom_title(self):
+        url = reverse("custom_title")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
 
 class StaticCsvPygWalkerViewUsageTests(TestCase):

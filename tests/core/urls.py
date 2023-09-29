@@ -3,6 +3,7 @@ from django.urls import path, include
 from tests.core.testapp.views import (
     BasicPygWalkerView,
     BasicStaticCsvPygWalkerViewView,
+    CustomTitlePygWalkerView,
     CustomTemplatePygWalkerView,
     CustomTemplateStaticCsvPygWalkerViewView,
     ExplicitFieldsPygWalkerView,
@@ -12,6 +13,7 @@ from tests.core.testapp.views import (
 
 urlpatterns = [
     path("basic/", BasicPygWalkerView.as_view(), name="basic"),
+    path("custom_title/", CustomTitlePygWalkerView.as_view(), name="custom_title"),
     path("explicit/", ExplicitFieldsPygWalkerView.as_view(), name="explicit"),
     path("custom/", CustomTemplatePygWalkerView.as_view(), name="custom"),
     path("static_basic/", BasicStaticCsvPygWalkerViewView.as_view(), name="static_basic"),
