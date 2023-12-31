@@ -4,6 +4,8 @@
 
 | Release | Details | 
 |----------|--------|
+| 0.0.7 | updates for latest pygwalker; adding handling for empty dataframe |
+| 0.0.6 | adding query parameter filtering in PygWalkerView |
 | 0.0.5 | adding PyGWalker paginaged list view |
 | 0.0.4 | adding PyGWalker list view |
 | 0.0.3 | adding view for uploadable csv file |

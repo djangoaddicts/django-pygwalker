@@ -9,4 +9,4 @@ jobs:
         with:
           src: "src"
           options: "-c pyproject.toml -r"
-          pip_install_command: "pip install .[dev]"
+          #pip_install_command: "pip install .[dev]"

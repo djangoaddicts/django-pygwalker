@@ -1,5 +1,0 @@
-Django
-django-handyhelpers
-myst-parser
-pandas
-pygwalker

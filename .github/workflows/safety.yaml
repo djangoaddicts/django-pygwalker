@@ -9,3 +9,4 @@ jobs:
         with:
           options: "--debug"
           pip_install_command: "pip install -e .[dev]"
+          python_version: "3.11"
