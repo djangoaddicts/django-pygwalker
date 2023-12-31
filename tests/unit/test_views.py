@@ -4,6 +4,7 @@ from django.test import RequestFactory, TestCase
 from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, PygWalkerListView, PygWalkerPaginatedListView
 from tests.core.testapp.forms import TestForm
 from tests.core.testapp.models import TestModel
+from model_bakery import baker
 
 
 class PygWalkerViewCallTests(TestCase):
@@ -42,12 +43,20 @@ class StaticCsvPygWalkerViewCallTests(TestCase):
 
 class PygWalkerViewUsageTests(TestCase):
     def test_basic(self):
+        baker.make("testapp.TestModel")
+        url = reverse("basic")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
+
+    def test_basic_no_data(self):
         url = reverse("basic")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
     def test_custom_template(self):
+        baker.make("testapp.TestModel")
         url = reverse("custom")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -55,18 +64,21 @@ class PygWalkerViewUsageTests(TestCase):
         self.assertTemplateNotUsed(response, "pygwalker/bs5/pygwalker.html")
 
     def test_explicit_fields(self):
+        baker.make("testapp.TestModel")
         url = reverse("explicit")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
     def test_custom_title(self):
+        baker.make("testapp.TestModel")
         url = reverse("custom_title")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
     def test_with_referrer(self):
+        baker.make("testapp.TestModel")
         url = reverse("basic")
         response = self.client.get(url, HTTP_REFERER="/?name=blah")
         self.assertEqual(response.status_code, 200)
@@ -121,6 +133,7 @@ class DynamicCsvPygWalkerTests(TestCase):
 class GenericPygWalkerTests(TestCase):
     """test GenericPygWalkerTests view"""
     def test_get(self):
+        baker.make("testapp.TestModel")
         url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
         response = self.client.get(url)
         self.assertTrue(True)
@@ -128,6 +141,7 @@ class GenericPygWalkerTests(TestCase):
         self.assertTemplateUsed(response, "pygwalker/bs5/pygwalker.html")
 
     def test_get_with_referrer(self):
+        baker.make("testapp.TestModel")
         url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
         response = self.client.get(url, **{"HTTP_REFERER": "/home?name=blah"})
         self.assertTrue(True)
