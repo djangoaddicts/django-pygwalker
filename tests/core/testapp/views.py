@@ -1,4 +1,9 @@
-from djangoaddicts.pygwalker.views import PygWalkerListView, PygWalkerPaginatedListView, PygWalkerView, StaticCsvPygWalkerView
+from djangoaddicts.pygwalker.views import (
+    PygWalkerListView,
+    PygWalkerPaginatedListView,
+    PygWalkerView,
+    StaticCsvPygWalkerView,
+)
 from tests.core.testapp.models import TestModel
 
 

@@ -1,7 +1,12 @@
 from django.shortcuts import reverse
 from django.test import RequestFactory, TestCase
 
-from djangoaddicts.pygwalker.views import PygWalkerView, StaticCsvPygWalkerView, PygWalkerListView, PygWalkerPaginatedListView
+from djangoaddicts.pygwalker.views import (
+    PygWalkerView,
+    StaticCsvPygWalkerView,
+    PygWalkerListView,
+    PygWalkerPaginatedListView,
+)
 from tests.core.testapp.forms import TestForm
 from tests.core.testapp.models import TestModel
 from model_bakery import baker
@@ -102,6 +107,7 @@ class StaticCsvPygWalkerViewUsageTests(TestCase):
 
 class DynamicCsvPygWalkerTests(TestCase):
     """test DynamicCsvPygWalker view"""
+
     def test_get(self):
         url = reverse("pygwalker:")
         response = self.client.get(url)
@@ -132,9 +138,10 @@ class DynamicCsvPygWalkerTests(TestCase):
 
 class GenericPygWalkerTests(TestCase):
     """test GenericPygWalkerTests view"""
+
     def test_get(self):
         baker.make("testapp.TestModel")
-        url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
+        url = reverse("pygwalker:generic_pyg", kwargs={"app_name": "testapp", "model_name": "testmodel"})
         response = self.client.get(url)
         self.assertTrue(True)
         self.assertEqual(response.status_code, 200)
@@ -142,7 +149,7 @@ class GenericPygWalkerTests(TestCase):
 
     def test_get_with_referrer(self):
         baker.make("testapp.TestModel")
-        url = reverse("pygwalker:generic_pyg", kwargs={"app_name":"testapp", "model_name":"testmodel"})
+        url = reverse("pygwalker:generic_pyg", kwargs={"app_name": "testapp", "model_name": "testmodel"})
         response = self.client.get(url, **{"HTTP_REFERER": "/home?name=blah"})
         self.assertTrue(True)
         self.assertEqual(response.status_code, 200)
