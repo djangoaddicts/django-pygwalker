@@ -1,8 +1,0 @@
-Django
-django-handyhelpers
-psutil
-sphinx
-sphinx-rtd-theme
-myst-parser
-pandas
-pygwalker
