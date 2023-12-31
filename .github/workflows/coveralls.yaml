@@ -12,3 +12,4 @@ jobs:
         options: ""
         pip_install_command: "pip install -e .[dev]"
         coveralls_repo_token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        python_version: "3.11"
