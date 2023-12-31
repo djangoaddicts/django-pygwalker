@@ -54,7 +54,10 @@ class PygWalkerView(View):
         if not self.title:
             self.title = f"{self.queryset.model._meta.model_name.title()} Analysis"
         pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
-        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
+        if pd_data.empty:
+            context = {"no_data": f"no {self.queryset.model.__name__} data found", "title": self.title}
+        else:
+            context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
         return render(request, self.template_name, context)
 
 
@@ -155,9 +158,12 @@ class GenericPygWalkerView(View):
             query_dict = {}
         model = apps.get_model(kwargs["app_name"], kwargs["model_name"])
         self.queryset = model.objects.filter(**query_dict)
-        pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
         title = f"{self.queryset.model._meta.model_name.title()} Analysis"
-        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": title}
+        pd_data = pd.DataFrame(list(self.queryset.values(*self.field_list)))
+        if pd_data.empty:
+            context = {"no_data": f"no {self.queryset.model.__name__} data found", "title": title}
+        else:
+            context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": title}
         return render(request, self.template_name, context)
 
 

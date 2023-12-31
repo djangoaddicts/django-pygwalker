@@ -4,10 +4,16 @@
 <section class="animated fadeIn" style="animation-delay: .15s;">
     {% include "pygwalker/bs5/partials/header.htm" %}
 </section>
+{% if pyg %}
 <section class="animated fadeIn" style="animation-delay: .25s;">
     {% include "pygwalker/bs5/partials/pyg.htm" %}
 </section>
 <section class="animated fadeIn" style="animation-delay: .35s;">
     {% include "pygwalker/bs5/partials/footer.htm" %}
 </section>
+{% elif no_data %}
+<section class="animated fadeIn text-center" style="animation-delay: .25s;">
+    {{ no_data }}
+</section>
+{% endif %}
 {% endblock content %}
