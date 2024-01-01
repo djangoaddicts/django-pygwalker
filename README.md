@@ -53,14 +53,6 @@ Documentation source files are available in the docs folder.
 
 <br/>
 
-## License
-django-pygwalker is licensed under the GNU-3 license (see the LICENSE file for details).
-
-https://github.com/djangoaddicts/django-pygwalker/blob/main/LICENSE
-
-
-<br/>
-
 ## Installation 
 - install via pip:
     ``` 
@@ -131,3 +123,15 @@ class MyPygWalkerView(PygWalkerView):
     queryset = MyModel.objects.all()
     template_name = "my_custom_template.html"
 ```
+
+<br/>
+
+## License
+django-pygwalker is licensed under the GNU-3 license (see the LICENSE file for details).
+
+https://github.com/djangoaddicts/django-pygwalker/blob/main/LICENSE
+
+<br/>
+
+## Contributing
+To contribute to django-pygwalker, please see [Contributing](.github/CONTRIBUTING.md)
