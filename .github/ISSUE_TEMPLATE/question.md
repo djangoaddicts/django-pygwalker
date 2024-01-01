@@ -1,6 +1,10 @@
 ---
 name: Question
 about: Ask a question or seek clarification
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 ## Question
