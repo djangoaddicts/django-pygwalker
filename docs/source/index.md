@@ -9,6 +9,9 @@ features
 internals
 version_history
 license
+coc
+contributing
+style_guide
 ```
 
 <br/>
