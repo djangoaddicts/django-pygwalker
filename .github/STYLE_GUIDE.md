@@ -9,6 +9,7 @@ and readability of the code.
 - [Naming Conventions](#naming-conventions)
 - [Docstrings](#docstrings)
 - [Typing](#typing)
+- [Virtual Environments](#virtual-environments)
 
 <br/>
 
@@ -308,5 +309,36 @@ Python's optional type hints, introduced in PEP 484 and expanded in subsequent P
     def apply_function(func: Callable[[int, int], int], a: int, b: int) -> int:
         return func(a, b)
     ```
+
+<br/>
+
+## Virtual Environments
+
+### Introduction
+
+A virtual environment is a self-contained directory that contains a Python interpreter and allows you to install and manage project-specific dependencies. Use a virtual environment to isolate project dependencies and avoid conflicts with system-wide packages.
+
+
+### Creating a Virtual Environment
+To create a virtual environment, use the following command at the **root** of the repository:
+
+```shell
+python -m venv venv
+```
+
+### Activating the Virtual Environment
+Once the virtual environment is created, activate it using the appropriate command for your operating system:
+
+For Windows:
+
+```shell
+venv\Scripts\activate
+```
+
+For Mac, Linux, and WSL:
+
+```shell
+source venv/bin/activate
+```
 
 <br/>
