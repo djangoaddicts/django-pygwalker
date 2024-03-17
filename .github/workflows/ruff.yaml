@@ -10,3 +10,4 @@ jobs:
         with:
           src: "src"
           options: "-v"
+          python_version: "3.11"

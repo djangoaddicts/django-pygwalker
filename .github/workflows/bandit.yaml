@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     name: "bandit"
     steps:
-      - uses: davidslusser/actions_python_bandit@v1.0.0
+      - uses: davidslusser/actions_python_bandit@v1.0.1
         with:
           src: "src"
           options: "-c pyproject.toml -r"
-          #pip_install_command: "pip install .[dev]"
+          pip_install_command: "pip install .[dev]"
+          python_version: "3.11"

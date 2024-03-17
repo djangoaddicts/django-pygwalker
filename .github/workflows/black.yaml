@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     name: "black"
     steps:
-      - uses: davidslusser/actions_python_black@v1.0.0
+      - uses: davidslusser/actions_python_black@v1.0.1
         with:
           src: "src"
           options: ""
-          #pip_install_command: "pip install .[dev]"
+          pip_install_command: "pip install .[dev]"
+          python_version: "3.11"

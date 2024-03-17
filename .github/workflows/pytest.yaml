@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "pytest"
     steps:
-      - uses: davidslusser/actions_python_pytest@v1.0.0
+      - uses: davidslusser/actions_python_pytest@v1.0.1
         with:
           src: ""
           options: "--cov=src"
