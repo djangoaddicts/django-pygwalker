@@ -57,7 +57,7 @@ class PygWalkerView(View):
         if pd_data.empty:
             context = {"no_data": f"no {self.queryset.model.__name__} data found", "title": self.title}
         else:
-            context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
+            context = {"pyg": pyg.to_html(pd_data, appearance=self.theme), "title": self.title}
         return render(request, self.template_name, context)
 
 
@@ -87,7 +87,7 @@ class StaticCsvPygWalkerView(View):
 
     def get(self, request):
         pd_data = pd.read_csv(self.csv_file)
-        context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": self.title}
+        context = {"pyg": pyg.to_html(pd_data, appearance=self.theme), "title": self.title}
         return render(request, self.template_name, context)
 
 
@@ -120,7 +120,7 @@ class DynamicCsvPygWalkerView(View):
                 )
                 return render(request, self.template_name, context)
             pd_data = pd.read_csv(csv_file)
-            context["pyg"] = pyg.walk(pd_data, return_html=True, dark=self.theme)
+            context["pyg"] = pyg.to_html(pd_data, appearance=self.theme)
             context[
                 "title"
             ] = f"""Showing data from <span class="text-secondary">{csv_file.name.split("/")[-1]}</span>"""
@@ -163,7 +163,7 @@ class GenericPygWalkerView(View):
         if pd_data.empty:
             context = {"no_data": f"no {self.queryset.model.__name__} data found", "title": title}
         else:
-            context = {"pyg": pyg.walk(pd_data, return_html=True, dark=self.theme), "title": title}
+            context = {"pyg": pyg.to_html(pd_data, appearance=self.theme), "title": title}
         return render(request, self.template_name, context)
 
 
