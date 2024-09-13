@@ -4,6 +4,7 @@
 
 | Release | Details | 
 |----------|--------|
+| 0.0.9 | updates to support the latest pygwalker (0.4.9.8 at time of publishing) |
 | 0.0.8 | updating styleguide; chaning default base template for detail pages |
 | 0.0.7 | updates for latest pygwalker; adding handling for empty dataframe |
 | 0.0.6 | adding query parameter filtering in PygWalkerView |
